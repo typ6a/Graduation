@@ -1,0 +1,38 @@
+
+<div class="actions-toolbar create-btn">
+  <div class="primary">
+    <button type="submit" class="action create primary" title="<?php  echo __('Create Quickorder') ?>"><span><a href="<?php echo $this->getUrl("quickorderingsystem/create"); ?>"><?php  echo __('Create') ?></a></span></button>
+  </div>
+</div>
+
+<?php  $_gridrecords = $block->getCollection(); // get collection which we set in block class?>
+<?php if ($_gridrecords && count($_gridrecords)) : ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo __('Quickorder #') ?></th>
+                    <!--  -->
+                    <th scope="col" class="col ">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $blockObj= $block->getLayout()->createBlock('Graduation\QuickorderingSystem\Block\Create'); ?>
+                <?php  foreach ($_gridrecords as $_gridrecord) {
+    ?>
+                    <tr>
+                        <td class="col id"><?php echo $_gridrecord->getQuickorderId() ?></td>
+                      
+                    </tr>
+                <?php
+} ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); // for display pager block which we create in block file.?></div>
+    <?php endif ?>
+    <?php else : ?>
+        <div class="message info empty"><span><?php echo __('You have raised no quickorders.'); ?></span></div>
+    <?php endif ?>

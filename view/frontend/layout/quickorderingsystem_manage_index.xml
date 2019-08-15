@@ -1,0 +1,14 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+       <title>Manage Quickorder</title>
+       <!-- <css src="Graduation_QuickorderingSystem::css/style.css" /> -->
+  </head>
+    <update handle="customer_account"/>
+    <body>
+        <move element="page.main.title" destination="content" before="-"/>
+         <referenceContainer name="content">
+             <block class="Graduation\QuickorderingSystem\Block\Manage" name="quickorderingsystem.manage" template="Graduation_QuickorderingSystem::manage.phtml" cacheable="false">
+             </block>
+        </referenceContainer>
+    </body>
+</page>

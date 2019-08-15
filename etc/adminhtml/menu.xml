@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Graduation_QuickorderingSystem::quickorderingsystem" title="Quickordering System" module="Graduation_QuickorderingSystem" sortOrder="51" resource="Graduation_QuickorderingSystem::quickorderingsystem"/>
+      <add id="Graduation_QuickorderingSystem::manage" title="Manage Quickorders" module="Graduation_QuickorderingSystem" sortOrder="10" action="quickorderingsystem/quickorders/index" resource="Graduation_QuickorderingSystem::manage" parent="Graduation_QuickorderingSystem::quickorderingsystem"/>
+    </menu>
+</config>

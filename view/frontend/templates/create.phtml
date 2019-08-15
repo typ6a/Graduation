@@ -1,0 +1,77 @@
+
+<div class="column">
+<form class="form form-edit-account" action="<?php /* @escapeNotVerified */ echo $block->getUrl('quickorderingsystem/create/index') ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="* Required Fields" autocomplete="off" novalidate="novalidate">
+    <fieldset class="fieldset info">
+        
+        <div class="field field-status required">
+            <label class="label" for="status">
+                <span><?=  __('Status') ?></span>
+            </label>
+
+            <div class="control">
+               <select id="status" name="status" title="Status" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+                <option value="">--Please select a status--</option>
+                    <?php
+                    foreach ($block->getStatus() as $key => $val) {
+                        echo '<option value='.$key.'>'.$val.'</option>';
+                    }
+                    ?>
+               </select>
+            </div>
+        </div>
+       
+        <div class="field field-name required">
+            <label class="label" for="name">
+                <span><?=  __('Name') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="name" name="name" title="Name" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+            </div>
+        </div>
+
+        <div class="field field-email required">
+            <label class="label" for="email">
+                <span><?=  __('Email') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="email" name="email" title="Email" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+            </div>
+        </div>
+
+        <div class="field field-sku required">
+            <label class="label" for="sku">
+                <span><?=  __('SKU') ?></span>
+            </label>
+
+            <div class="control">
+                <input type="text" id="sku" name="sku" title="SKU" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+            </div>
+        </div>
+
+        <div class="primary create-quickorder">
+            <button type="submit" class="action save primary" title="Save"><span><?=  __('Save') ?></span></button>
+        </div>
+
+    </fieldset>
+
+    <div class="actions-toolbar">
+
+    </div>
+</form>
+<script>
+    require([
+        "jquery",
+        "mage/mage"
+    ], function($){
+        var dataForm = $('#form-validate');
+        var ignore = null;
+
+        dataForm.mage('validation', {
+                    ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+                });
+
+    });
+</script>
+</div>

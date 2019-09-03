@@ -60,3 +60,6 @@ class Actions extends Column
         return $dataSource;
     }
 }
+
+
+// In Actions Class We can declare action columns like edit,delete and any custom action.

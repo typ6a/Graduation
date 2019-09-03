@@ -33,17 +33,7 @@ class ListProduct extends \Magento\Catalog\Block\Product\ProductList\Item\Block
         ];
     }
 
-    // public function getProductSku(\Magento\Catalog\Model\Product $product)
-    // {
-    //     return $product->getSku();
-    // }
-
-    // public function getProductId(\Magento\Catalog\Model\Product $product)
-    // {
-    //     return $product->getEntityId();
-    // }
-
-     /**
+    /**
      * @return string
      */
     public function getAjax()

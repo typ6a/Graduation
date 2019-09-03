@@ -5,3 +5,18 @@
       <add id="Graduation_QuickorderingSystem::manage" title="Manage Quickorders" module="Graduation_QuickorderingSystem" sortOrder="10" action="quickorderingsystem/quickorders/index" resource="Graduation_QuickorderingSystem::manage" parent="Graduation_QuickorderingSystem::quickorderingsystem"/>
     </menu>
 </config>
+<!-- 
+id - Unique identifier and format should be {Vendor_ModuleName}::
+{menu_description}
+title - Admin menu bar text
+module - which this menu is belong to
+sortOrder - position of the menu
+action - url and format should be {router_name}{controller_folder}{action_name}
+resource - Using this we can define ACL rules.
+parent - Id of parent menu -->
+
+<!-- 
+(action="ticketingsystem/tickets/index"). Magento 2 Controller contains one or more files in Controller folder of module, it includes class of action type which contain execute() method. If we put in another way every URL in Magento 2 corresponds to a single controller file, and each controller file has a single execute method.
+created Tickets controller and Index action inside Controller/Adminhtml folder of module.
+
+ -->

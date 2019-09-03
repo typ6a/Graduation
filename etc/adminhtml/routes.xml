@@ -6,3 +6,9 @@
         </route>
     </router>
 </config>
+
+<!-- 
+In node attributes  id - type of the router and admin is for backend
+node attributes  id - unique identifier 
+node attributes name - _
+FrontName -  our module backend route name and its defines the first segment of admin url(it should unique). -->

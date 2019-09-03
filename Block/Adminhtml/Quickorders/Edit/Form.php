@@ -70,7 +70,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 ['legend' => __('Add Row Data'), 'class' => 'fieldset-wide']
             );
         }
-
         $fieldset->addField(
             'quickorder_id',
             'text',
@@ -97,9 +96,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'disabled' => true,
             ]
         );
-
-
-
         $fieldset->addField(
             'name',
             'text',
@@ -152,66 +148,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'disabled' => true,
             ]
         );
-
-
-
-        // $fieldset->addField(
-        //     'category',
-        //     'select',
-        //     [
-        //         'name' => 'category',
-        //         'label' => __('Category'),
-        //         'id' => 'category',
-        //         'title' => __('Category'),
-        //         'class' => 'required-entry',
-        //         'values' => $this->_category->toOptionArray(),
-        //         'required' => true,
-        //         'disabled' => true,
-        //     ]
-        // );
-
-        // $fieldset->addField(
-        //     'subject',
-        //     'text',
-        //     [
-        //         'name' => 'subject',
-        //         'label' => __('Subject'),
-        //         'id' => 'subject',
-        //         'title' => __('Subject'),
-        //         'class' => 'required-entry',
-        //         'required' => true,
-        //         'disabled' => true,
-        //     ]
-        // );
-
-        // $wysiwygConfig = $this->_wysiwygConfig->getConfig(['tab_id' => $this->getTabId()]);
-
-        // $fieldset->addField(
-        //     'content',
-        //     'editor',
-        //     [
-        //         'name' => 'content',
-        //         'label' => __('Content'),
-        //         'style' => 'height:36em;',
-        //         'required' => true,
-        //         'config' => $wysiwygConfig,
-        //         'disabled' => true,
-        //     ]
-        // );
-        // $fieldset->addField(
-        //     'priority',
-        //     'select',
-        //     [
-        //         'name' => 'priority',
-        //         'label' => __('Priority'),
-        //         'id' => 'priority',
-        //         'title' => __('Priority'),
-        //         'class' => 'required-entry',
-        //         'values' => $this->_priority->toOptionArray(),
-        //         'required' => true,
-        //         'disabled' => true,
-        //     ]
-        // );
         $fieldset->addField(
             'status',
             'select',
@@ -225,8 +161,6 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
                 'required' => true,
             ]
         );
-
-
         $fieldset->addField(
             'created_at',
             'date',
@@ -249,3 +183,5 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
         return parent::_prepareForm();
     }
 }
+
+// declare edit form fields(which we want to show in from)

@@ -4,7 +4,7 @@
             <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-graduationquickorderingsystem" after="-">
                 <arguments>
                     <argument name="path" xsi:type="string">quickorderingsystem/manage</argument>
-                    <argument name="label" xsi:type="string">Raise Quickorder</argument>
+                    <argument name="label" xsi:type="string">Quickorders</argument>
                 </arguments>
             </block>
         </referenceBlock>

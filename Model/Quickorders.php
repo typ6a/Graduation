@@ -35,3 +35,4 @@ class Quickorders extends \Magento\Framework\Model\AbstractModel implements \Mag
 // $_eventPrefix - a prefix for events to be triggered
 // $_eventObject - a object name when access in event
 // $_cacheTag - a unique identifier for usage in caching
+

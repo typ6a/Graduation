@@ -1,0 +1,193 @@
+1. Создание модуля
+routes
+2.Admin
+/etc/adminhtml/routes.xml
+3. Admin Меню файл menu.xml внутри etc/adminhtml
+4. Контроллер и Action для “Manage Quickorders», которые мы определили в menu.xml, (action = "quickorderingsystem/quickorders/index")
+5. Schema базы данных
+Файл InstallSchema.php в папке установки модуля. Этот файл выполняется только один раз при установке модуля.
+Расположение файла: Setup/InstallSchema.php. Запустить bin/magento setup:upgrade
+6. Model
+6.1. Базовая модель
+Файл модели (Model/Quickorders.php) внутри Папки моделей: Model/Quickorders.php
+6.2 Класс ResourceModel, который фактически содержит методы, которые будут извлекать информацию из базы данных. Каждая модель CRUD в Magento 2 имеет соответствующий класс модели ресурсов.
+Файл модели ресурсов (Model/ResourceModel/Quickorders.php) внутри папки Model/ResourceModel
+В методе _init мы определяем имя таблицы базы данных ('graduation_quickordering_system') и первичный ключ для этой таблицы ('id'). Расположение файла: Model/ResourceModel/Quickorders.php
+6.3 Коллекция
+Коллекции также являются типом ResourceModel, но вместо одного объекта они получают несколько объектов. Коллекция собирает отдельные модели. Файл коллекции моделей - файл Collection.php в папке Model/ResourceModel/ResourceModelClassName
+Метод _init коллекции модели ресурсов принимает два аргумента, первый из которых ('Model\Quickorders') - модель, которую собирает эта коллекция, и второй аргумент ('Model\ResourceModel\Quickorders') - модель ресурса собранной модели. Model/ResourceModel/Quickorders/Collection.php
+6.4 Factory Object
+В Factory вместо создания объекта с помощью ключевого слова "new" мы создаем его с помощью нашего «собственного класса», основная причина - избежать жесткой зависимости, а также локализовать логику для сложных объектов. В Magento 2 для каждой модели CRUD существует соответствующий класс фабрики, к названию модели CRUD добавляется "Factory".
+Она автоматически сгенерирует класс Factory в папке var/generation, если класс еще не существует (расположение файла: var/generation/Model/ClassFactory.php).
+Для нашего модуля файл является /var/generation/Graduation/QuickorderingSystem/Model/QuickordersFactory.php.
+7. Компоненты (Grid администратора)
+Новая концепция в Magento 2 - UI Components, которая помогает в повторном использовании компонентов, основная идея заключается в том, чтобы позволить нам создавать более сложные компоненты UI, повторно используя простые (меньшие) компоненты
+7.1 Настройка компонента пользовательского интерфейса источника данных для поставщика данных (data provider) в файле внедрения зависимостей (di.xml) определяет data provider, который является классом коллекции Quickorder, таблицей и resourceModel для таблицы. Этот data provider используется в нашем файле Layout, чтобы получить данные для грида di.xml в папке etc/.
+Таблица базы данных: «Graduation_quickordering_system»
+Коллекция: "Model\ResourceModel\Quickorders\Коллекция"
+Модель ресурсов: Graduation\QuickorderingSystem\Model\ResourceModel\Quickorders
+Расположение файла: app/code/Graduation/QuickorderingSystem/etc/di.xml
+7.2 Файл Action layout  для сетки администратора.
+файл темплейта для нашего грида администратора, мы определяем, что мы используем компонент пользовательского интерфейса листинга "quickorderingsystem_quickorders_listing"
+XML-файл темплейта создается в папке view/adminhtml/layout.
+формат имени файла как __. xml
+Расположение файла: app/code/Graduation/QuickorderingSystem/view/adminhtml/layout/quickorderingsystem_quickorders_index.xml
+7.3. Настройка компонента интерфейса (списка)
+Листинг - это базовый компонент пользовательского интерфейса, отвечающий за рендеринг сеток, списков и плиток, обеспечение фильтрации, разбивки на страницы и сортировки.
+
+Компонент пользовательского интерфейса в папке view/adminhtml/ui_component /, имя файла должно совпадать с именем uiComponent.
+Чтобы включить панель инструментов для node, Для фильтров для полнотекстового поиска filterSearch name = "fulltext" /> Для node Сохранить шаблоны столбцов
+Расположение файла:
+app/code/Graduation/QuickorderingSystem/просмотр/adminhtml/ui_component/quickorderingsystem_quickorders_listing.xml
+7.4 Колонка действий для сетки и формы редактирования
+Чтобы включить редактирование и удаление записей в сетке администратора, мы создаем действия.
+
+Чтобы добавить столбец действий в сетку, нам нужно добавить приведенный ниже код в XML-файл компонента «app/code/Graduation/QuickorderingSystem/view/adminhtml/ui_component/quickorderingsystem_quickorders_listing.xml» внутри node столбцов.
+Это будет принимать первичный ключ таблицы в качестве входных данных и выводить URL (путь URL будет указан в файле класса node actionsColumn).
+
+Action класс, который мы указали в actionsColumn is Graduation\QuickorderingSystem\Ui\Component\Listing\Column\Actions
+В классе действий мы можем объявить столбцы действий, такие как редактирование, удаление и любые пользовательские действия.
+Ниже мы можем только редактировать столбец.
+класс построителя URL для создания указанного действия/URL.
+Расположение файла:
+app/code/Graduation/QuickorderingSystem/Block/Adminhtml/Module/Grid/Renderer/Action/UrlBuilder.php
+добавить Action для редактирования столбца.
+
+упомянnый URL_PATH_EDIT в Action.php на active link, нам нужно создать контроллер, темплейт, файлы блока.
+
+Файл контроллера администратора для редактирования записей
+Здесь мы загружаем соответствующие записи на основе первичного ключа
+Эти данные будут отправлены для редактирования формы.
+Расположение файла:
+app/code/Graduation/QuickorderingSystem/Controller/Adminhtml/Quickorders/add.php
+
+
+
+
+
+
+файл темплейта администратора
+
+Для создания тaction layouе нам нужно создать layout xml файл в папке  view/adminhtml/layout.
+Имя файла должно быть отформатировано как __. Xml
+объявил имя блока.
+ Расположение файла:
+app/code/Graduation/QuickorderingSystem/просмотр/adminhtml/template/quickorderingsystem_quickorders_add.xml
+В классе node - путь к соответствующему классу блока
+Имя - название блока
+
+admin layout file
+Для создания файла блока нам нужно создать блочные файлы в папке Block/Adminhtml (мы создали блок Add.php)
+Здесь мы объявляем имя формы редактирования, Action URl и сохранение URL.
+Расположение файла:
+app/code/Graduation/QuickorderingSystem/Block/Adminhtml/Quickorders/Add.php
+
+Создать админ редактировать файл блочной формы
+
+Для создания файла блока нам нужно создать файл формы внутри папки Block/Adminhtml/Quickorders/Edit
+Здесь мы объявляем поля редактирования формы (которые мы хотим показать в)
+Расположение файла:
+app/code/Graduation/QuickorderingSystem/Block/Adminhtml/Quickorders/Edit/Form.php
+
+Создать Action сохранения,
+
+Расположение файла:
+app/code/Graduation/QuickorderingSystem/Controller/Adminhtml/Quickorders/Save.php
+
+
+
+
+1.Create Module
+2.Admin Routes
+/etc/adminhtml/routes.xml
+3.Admin menu
+menu.xml file inside etc/adminhtml
+4.Controller and Action for “Manage Quickorders” which we have defined in menu.xml, (action="quickorderingsystem/quickorders/index")
+5.Database Schema
+File  InstallSchema.php inside Setup folder of module. This file executes only one time when install the module.
+File Location: Setup/InstallSchema.php. Run bin/magento setup:upgrade
+6.Model 
+6.1. Base Model
+Model file (Model/Quickorders.php) inside Model Folder: Model/Quickorders.php
+6.2  Resource Model class, which actually  contains the methods that will fetch the information from the database. Each CRUD model in Magento 2 has a corresponding resource model class.
+Resource Model file (Model/ResourceModel/Quickorders.php) inside Model/ResourceModel Folder
+In the _init method we define the  name of the database table ('graduation_quickordering_system'), and the primary key for this table ('id'). File Location:Model/ResourceModel/Quickorders.php
+6.3 Collection
+Collections are also type of ResourceModel, but instead of single object they get multiple objects. A collection collects individual Models. Model Collection file - Collection.php file in Model/ResourceModel/ResourceModelClassName Folder
+A collection resource model’s _init method accepts two arguments, the First one is ('Model\Quickorders') -  model that this collection collects and the second argument ('Model\ResourceModel\Quickorders') - collected model’s resource model. Model/ResourceModel/Quickorders/Collection.php
+6.4 Factory Object
+Factory design pattern is where instead of creating the object using ‘New’ Keyword, we create it using our ‘Own Class’, the main reason is being to avoid hard dependency and also to localize the logic for complex objects. In Magento 2 for each CRUD model there is corresponding factory class, with ‘Factory’ appended to CRUD Model name. 
+In Magento 2 for each CRUD model there is corresponding factory class, with ‘Factory’ appended to CRUD Model name. 
+It will automatically generate the Factory class in the var/generation folder if the class does not already exist (File Location: var/generation///Model/ClassFactory.php)
+For our module file is /var/generation/Graduation/QuickorderingSystem/Model/QuickordersFactory.php.
+7. Components (Admin Grids)
+A new concept in the Magento 2 is UI Components, which helps in reusability of components, the basic idea behind is to allow us build more complex UI components reusing smaller components
+7.1 Configure Data Source UI Component for data provider in dependency injection (di.xml) file define the data provider which is the Quickorder collection class, table and resourceModel for the table. This source is used in our next step Layout file to get data for grid
+ di.xml in etc/folder.
+Database table: “graduation_quickordering_system”
+Collection: "Model\ResourceModel\Quickorders\Collection"
+Resource Model: Graduation\QuickorderingSystem\Model\ResourceModel\Quickorders
+File Location : app/code/Graduation/QuickorderingSystem/etc/di.xml
+7.2 Action layout file for admin grid.
+create layout file for our admin grid, we define we use the Listing UI Component  "quickorderingsystem_quickorders_listing"
+Layout xml file is created inside view/adminhtml/layout folder.
+File name should be formatted as __.xml 
+File Location : app/code/Graduation/QuickorderingSystem/view/adminhtml/layout/quickorderingsystem_quickorders_index.xml
+7.3 Configure Listing(Grid) UI Component
+Listing is a basic UI component responsible for rendering grids, lists and tiles, providing filtering, pagination, sorting. 
+
+UI component  in view/adminhtml/ui_component/ folder, File name should same as uiComponent name.
+To enable the ToolBar the node, For Filters For Full text search  filterSearch name="fulltext"/> For Save column templates node
+File Location :
+app/code/Graduation/QuickorderingSystem/view/adminhtml/ui_component/quickorderingsystem_quickorders_listing.xml
+7.4 Action column to Grid and Edit form
+To enable edit and delete of the records in the admin grid we create actions.
+
+To add action column to grid we need add below code to ui component xml file “app/code/Graduation/QuickorderingSystem/view/adminhtml/ui_component/quickorderingsystem_quickorders_listing.xml”  inside columns node.
+This will take table primary key as input and outputs the URL(URL path will be specified in actionsColumn node class file). 
+
+Create a action class which we specified in actionsColumn the is Graduation\QuickorderingSystem\Ui\Component\Listing\Column\Actions
+In Actions Class We can declare action columns like edit,delete and any custom action.
+Below we are declaring only edit column.
+
+ Create Url builder class to build specified action/URL.
+File Location :
+app/code/Graduation/QuickorderingSystem/Block/Adminhtml/Module/Grid/Renderer/Action/UrlBuilder.php
+
+add action to edit column.
+
+mentioned URL_PATH_EDIT in Action.php to active link we need to create Controller, layout, block files.
+
+Create admin controller file to edit records
+Here we will load the respective records based on primary key
+This data will be sent to edit form. 
+File Location:
+app/code/Graduation/QuickorderingSystem/Controller/Adminhtml/Quickorders/Add.php
+
+Create admin layout file
+
+To create action layout we need to create layout xml file insdie view/adminhtml/layout folder.
+File name should be formatted as __.xml 
+declared the block name.
+ File Location:
+app/code/Graduation/QuickorderingSystem/view/adminhtml/layout/quickorderingsystem_quickorders_add.xml
+In node   class - path of the respective block class
+Name - block name
+
+Create admin block file
+To create block file we need to create block files inside Block/Adminhtml folder(We have created a Add.php block)
+Here we declare edit form name, action URl and saving URL.
+File Location:
+app/code/Graduation/QuickorderingSystem/Block/Adminhtml/Quickorders/Add.php
+
+Create admin edit block form file
+
+To create block file we need to create form file inside Block/Adminhtml/Quickorders/Edit folder
+Here we declare edit form fields(which we want to show in from)
+File Location:
+app/code/Graduation/QuickorderingSystem/Block/Adminhtml/Quickorders/Edit/Form.php
+
+Create save action,
+
+File Location:
+app/code/Graduation/QuickorderingSystem/Controller/Adminhtml/Quickorders/Save.php

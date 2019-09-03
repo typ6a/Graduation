@@ -39,7 +39,6 @@ class Save extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         ResultJsonFactory $resultJsonFactory,
         \Magento\Framework\Message\ManagerInterface $messageManager,
-        // \Graduation\QuickorderingSystem\Model\QuickorderingSystemItemFactory $quickordersFactory
         \Graduation\QuickorderingSystem\Model\QuickordersFactory $quickordersFactory
     ) {
         $this->storeManager = $storeManager;
@@ -70,8 +69,8 @@ class Save extends \Magento\Framework\App\Action\Action
         $storeId = $this->getStoreIdCurrent();
         if ($data) {
             $result = json_encode($data, true);
-        $this->saveData($data);
-        $this->messageManager->addSuccess(__($result));
+            $this->saveData($data);
+            $this->messageManager->addSuccess(__($result));
         
         }
         return $data;
@@ -81,13 +80,12 @@ class Save extends \Magento\Framework\App\Action\Action
     {
         $quickOrder = $this->quickordersFactory->create();
         $array = [
-                'name'          => $data['name'],
-                'email'         => $data['mail'],
-                'phone'         => $data['phone'],
-                'sku'           => $data['product_sku'],
+                'name'    => $data['name'],
+                'email'   => $data['mail'],
+                'phone'   => $data['phone'],
+                'sku'     => $data['product_sku'],
                 'status'  => 1,
             ];
-
         $quickOrder->setData($array)->save();
         $this->messageManager->addSuccess('data saved');
     }

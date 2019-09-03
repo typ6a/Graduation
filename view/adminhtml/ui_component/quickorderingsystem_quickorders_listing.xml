@@ -29,27 +29,9 @@
       <filterSearch name="fulltext"/>
       <paging name="listing_paging"/>
       <exportButton name="export_button"/>
-      <!-- <argument name="data" xsi:type="array">
-        <item name="config" xsi:type="array">
-              <item name="sticky" xsi:type="boolean">true</item>
-        </item>
-      </argument> -->
     </listingToolbar>
 
-
-
-
     <columns name="spinner_columns">
-        <column name="quickorder_id">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">textRange</item>
-                    <item name="sorting" xsi:type="string">asc</item>
-                    <item name="label" xsi:type="string" translate="true">Quickorder Id</item>
-                </item>
-
-            </argument>
-        </column>
         <column name="customer_id">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -87,56 +69,6 @@
             </argument>
         </column>
 
-        <!-- <column name="category">
-            <argument name="data" xsi:type="array">
-              <item name="options" xsi:type="object">Graduation\QuickorderingSystem\Model\Source\Category</item>
-                <item name="config" xsi:type="array">
-                  <item name="filter" xsi:type="string">select</item>
-                   <item name="dataType" xsi:type="string">multiselect</item>
-                    <item name="sorting" xsi:type="string">asc</item>
-                    <item name="label" xsi:type="string" translate="true">Category</item>
-                    </item>
-            </argument>
-        </column>
-        <column name="subject">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Subject</item>
-                </item>
-            </argument>
-        </column> -->
-        <!-- <column name="content">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">content</item>
-                </item>
-            </argument>
-        </column>
-        <column name="priority">
-            <argument name="data" xsi:type="array">
-              <item name="options" xsi:type="object">Graduation\QuickorderingSystem\Model\Source\Priority</item>
-                <item name="config" xsi:type="array">
-                  <item name="filter" xsi:type="string">select</item>
-                   <item name="dataType" xsi:type="string">multiselect</item>
-                    <item name="sorting" xsi:type="string">asc</item>
-                    <item name="label" xsi:type="string" translate="true">Priority</item>
-                    </item>
-            </argument>
-        </column> -->
         <column name="status" class="Graduation\QuickorderingSystem\Ui\Component\Listing\Column\Update">
             <argument name="data" xsi:type="array" >
               <item name="options" xsi:type="object">Graduation\QuickorderingSystem\Model\Source\Status</item>
@@ -175,6 +107,11 @@
                 </item>
             </argument>
         </actionsColumn>
-
     </columns>
 </listing>
+
+<!-- 
+Listing is a basic UI component responsible for rendering grids, lists and tiles, providing filtering, pagination, sorting. In this step we will configure it.
+
+create UI component  in view/adminhtml/ui_component/ folder, File name should same as uiComponent name.
+To enable the ToolBar the node , For Filters For Full text search  filterSearch name="fulltext"/> For Save column templates node -->

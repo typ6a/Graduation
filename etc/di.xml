@@ -13,3 +13,13 @@
         </arguments>
     </virtualType>
 </config>
+<!-- 
+Configure Data Source UI Component for data provider in dependency injection(di.xml) file 
+
+define the data provider which is the Ticket collection class, table and resourceModel for the table. This source is used in our next step Layout file to get data for grid
+We create di.xml in etc/folder.
+
+Database table “ktree_ticketing_system”
+Collection "Model\ResourceModel\Tickets\Collection"
+Resource Model Ktree\TicketingSystem\Model\ResourceModel\Tickets
+File Location : app/code/Ktree/TicketingSystem/etc/di.xml -->

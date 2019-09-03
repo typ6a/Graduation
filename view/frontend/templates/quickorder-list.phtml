@@ -1,15 +1,15 @@
-<?php $product = $block->getProduct(); ?>
-<?php $helper = $this->helper("Graduation\QuickorderingSystem\Helper\Data"); ?>
-<?php $buttonTitle = $helper->getConfig('quickorder/general/button_title'); ?>
-
-<?php $postParams = $block->getProductParams($product);
-print_r($postParams);?>
+<?php 
+$product = $block->getProduct();
+$helper = $this->helper("Graduation\QuickorderingSystem\Helper\Data");
+$buttonTitle = $helper->getConfig('quickorder/general/button_title');
+$postParams = $block->getProductParams($product);
+?>
 
 <div class="quickorder-btn">
     <button type="submit"
             title="<?php echo $block->escapeHtml(__($buttonTitle)); ?>"
             class="action tocart quickorder primary"
-            id="product-callback-button-<?php echo $postParams['id']?>"
+            id="product-quickorder-button-<?php echo $postParams['id']?>"
             >
         <span><?php /* @noEscape */ echo __($buttonTitle) ?></span>
     </button>
@@ -18,28 +18,28 @@ print_r($postParams);?>
 <div data-role="focusable-scope" id="popup_modal_<?php echo $postParams['id']?>">
     <div id="popupmodal" style="">
         <div style="margin-top:20px;">
-            <table id="callback" border="0" cellspacing="0" cellpadding="0">
+            <table id="quickorder" border="0" cellspacing="0" cellpadding="0">
                 <tbody>
-                <input name="callback_sku" id="callback_sku_<?php echo $postParams['sku']?>" value="<?php echo $block->getProductParams($product)['sku']?>" type="text" hidden>
+                <input name="quickorder_sku" id="quickorder_sku_<?php echo $postParams['sku']?>" value="<?php echo $block->getProductParams($product)['sku']?>" type="text" hidden>
                 <tr>
                     <td style="width:20%;"><strong>Name*</strong></td>
                     <td>:</td>
                     <td>
-                        <input name="callback_name" id="callback_name_<?php echo $postParams['id']?>" class="required-entry" value="" style="width:80%;" type="text">
+                        <input name="quickorder_name" id="quickorder_name_<?php echo $postParams['id']?>" class="required-entry" value="" style="width:80%;" type="text">
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%;"><strong>Phone*</strong></td>
                     <td>:</td>
                     <td>
-                        <input name="callback_phone" id="callback_phone_<?php echo $postParams['id']?>" class="required-entry" value="" style="width:80%;" type="text"><br/>
+                        <input name="quickorder_phone" id="quickorder_phone_<?php echo $postParams['id']?>" class="required-entry" value="" style="width:80%;" type="text"><br/>
                     </td>
                 </tr>
                 <tr>
                     <td style="width:20%;"><strong>Email</strong></td>
                     <td>:</td>
                     <td>
-                        <input name="callback_email" type="email" id="callback_email_<?php echo $postParams['id']?>" class="" value="" style="width:80%;" type="email"><br/>
+                        <input name="quickorder_email" type="email" id="quickorder_email_<?php echo $postParams['id']?>" class="" value="" style="width:80%;" type="email"><br/>
                     </td>
                 </tr>
                 </tbody>
@@ -70,7 +70,7 @@ print_r($postParams);?>
             };
 
             var popup = modal(options, $('#popup_modal_<?php echo $postParams['id']?>'));
-            $("#product-callback-button-<?php echo $postParams['id']?>").on('click',function(){
+            $("#product-quickorder-button-<?php echo $postParams['id']?>").on('click',function(){
                 $("#popup_modal_<?php echo $postParams['id']?>").modal("openModal");
                 // $(this).remove();
             });
@@ -78,16 +78,15 @@ print_r($postParams);?>
             var url = '<?php echo $block->getAjax(); ?>';
 
             $("#submit_button_<?php echo $postParams['id']?>").on('click',function(){
-                var sku    = $("#callback_sku_<?php echo $postParams['sku']?>").val();
-                var name    = $("#callback_name_<?php echo $postParams['id']?>").val();
-                var phone   = $("#callback_phone_<?php echo $postParams['id']?>").val();
-                var email   = $("#callback_email_<?php echo $postParams['id']?>").val();
-                console.log(url);
-                console.log(name);
-                console.log(sku);
-                console.log(phone);
-                console.log(email);
-                console.log('<?php echo $block->getFormKey() ?>');
+                var sku    = $("#quickorder_sku_<?php echo $postParams['sku']?>").val();
+                var name    = $("#quickorder_name_<?php echo $postParams['id']?>").val();
+                var phone   = $("#quickorder_phone_<?php echo $postParams['id']?>").val();
+                var email   = $("#quickorder_email_<?php echo $postParams['id']?>").val();
+                // console.log(url);
+                // console.log(name);
+                // console.log(sku);
+                // console.log(phone);
+                // console.log(email);
                 
                 $.ajax({
                 type: "POST",
@@ -99,7 +98,7 @@ print_r($postParams);?>
                 
                 success: function () {
                   $("#popup_modal_<?php echo $postParams['id']?>").modal("closeModal");
-                    console.log('dddddddddddd');
+                    // console.log('dddddddddddd');
                 },  
 
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 

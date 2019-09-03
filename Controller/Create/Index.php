@@ -17,11 +17,6 @@ class Index extends \Magento\Framework\App\Action\Action
         return parent::__construct($context);
     }
 
-    /**
-     * Booking action
-     *
-     * @return void
-     */
     public function execute()
     {
 
@@ -37,12 +32,14 @@ class Index extends \Magento\Framework\App\Action\Action
 
         $postData = (array) $this->getRequest()->getPost();
         if (!empty($postData)) {
+        // var_dump($postData); exit;
             $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
             $session = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Customer\Model\Session');
 
             $model = $this->_quickordersFactory->create();
             $quickorderCollection = $model->getCollection()->setOrder('id', 'DESC')->setPageSize(1)->getFirstItem();
-            $quickorderId = ($quickorderCollection->getData()) ? filter_var($quickorderCollection->getQuickorderId(), FILTER_SANITIZE_NUMBER_INT)+1:1000;
+            // var_dump($quickorderCollection->getData()); exit;
+            $quickorderId = ($quickorderCollection->getData()) ? filter_var($quickorderCollection->getId(), FILTER_SANITIZE_NUMBER_INT)+1:1000;
             // Setting data to model to save
             $model->setData($postData);
             $model->setQuickorderId("#".$quickorderId);

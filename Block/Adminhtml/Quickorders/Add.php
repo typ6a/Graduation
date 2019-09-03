@@ -79,3 +79,5 @@ class Add extends \Magento\Backend\Block\Widget\Form\Container
         return $this->getUrl('*/*/save');
     }
 }
+
+// declare edit form name, action URl and saving URL.

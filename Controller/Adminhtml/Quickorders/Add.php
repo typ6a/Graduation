@@ -56,3 +56,9 @@ class Add extends \Magento\Backend\App\Action
         return $this->_authorization->isAllowed('Graduation_QuickorderingSystem::add');
     }
 }
+
+// mentioned URL_PATH_EDIT in Action.php to active link we need to create Controller, layout, block files.
+
+// Create admin controller file to edit records
+// Here we will load the respective records based on primary key
+// This data will be sent to edit form. 

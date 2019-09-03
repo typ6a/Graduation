@@ -9,3 +9,5 @@ class Quickorders extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
         //$this->_init('table name', 'primary key column name');
     }
 }
+
+// In the _init method we define the  name of the database table ('Graduation_quickordering_system') , and the primary key for this table ('id').
